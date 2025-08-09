@@ -22,14 +22,14 @@ jobs:
 
           notion = Client(auth=os.environ["NOTION_TOKEN"])
           dbid = os.environ["NOTION_DB_ID"]
-          now = datetime.datetime.now(gettz("Asia/Tokyo")).strftime("%Y-%m-%d")
+          today = datetime.datetime.now(gettz("Asia/Tokyo")).strftime("%Y-%m-%d")
 
           page = notion.pages.create(
             parent={"database_id": dbid},
             properties={
-              "Title":    {"title": [{"text": {"content": f"スキーマ接続テスト {now}"}}]},
-              "Date":     {"date": {"start": now}},
-              "Language": {"multi_select": {"name": "EN"}},
+              "Title":    {"title": [{"text": {"content": f"スキーマ接続テスト {today}"}}]},
+              "Date":     {"date": {"start": today}},
+              "Language": {"multi_select": [{"name": "EN"}]},   # ←配列！
               "Source":   {"rich_text": [{"text": {"content": "TestSource"}}]},
               "URL":      {"url": "https://example.com"}
             }
