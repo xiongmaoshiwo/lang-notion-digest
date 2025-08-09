@@ -1,0 +1,38 @@
+name: Notion Schema Ping
+on:
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install notion client
+        run: pip install notion-client python-dateutil
+      - name: Create page with all properties
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+        run: |
+          python - <<'PY'
+          import os, datetime
+          from notion_client import Client
+          from dateutil.tz import gettz
+
+          notion = Client(auth=os.environ["NOTION_TOKEN"])
+          dbid = os.environ["NOTION_DB_ID"]
+          now = datetime.datetime.now(gettz("Asia/Tokyo")).strftime("%Y-%m-%d")
+
+          page = notion.pages.create(
+            parent={"database_id": dbid},
+            properties={
+              "Title":    {"title": [{"text": {"content": f"スキーマ接続テスト {now}"}}]},
+              "Date":     {"date": {"start": now}},
+              "Language": {"select": {"name": "EN"}},
+              "Source":   {"rich_text": [{"text": {"content": "TestSource"}}]},
+              "URL":      {"url": "https://example.com"}
+            }
+          )
+          print("Created page:", page.get("id"))
+          PY
