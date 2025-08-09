@@ -6,4 +6,4 @@ chinese_rss:
 items_per_lang: 4
 min_chars: 800
 max_chars: 12000
-use_openai: true
+use_openai: false
