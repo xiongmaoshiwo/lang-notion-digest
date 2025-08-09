@@ -19,8 +19,10 @@ jobs:
           python - <<'PY'
           import nltk
           nltk.download('punkt')
+          nltk.download('punkt_tab')              # 
           nltk.download('averaged_perceptron_tagger')
           PY
+
       - name: Run digest
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
