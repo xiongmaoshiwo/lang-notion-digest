@@ -1,0 +1,36 @@
+name: Notion Ping
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install notion client
+        run: pip install notion-client
+      - name: Create test page
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+        run: |
+          python - <<'PY'
+          import os, datetime
+          from notion_client import Client
+
+          token = os.environ["NOTION_TOKEN"]
+          dbid = os.environ["NOTION_DB_ID"]
+          notion = Client(auth=token)
+
+          title = f"接続テスト {datetime.datetime.now().isoformat(timespec='seconds')}"
+          page = notion.pages.create(
+              parent={"database_id": dbid},
+              properties={
+                  "Title": {"title": [{"text": {"content": title}}]}
+              }
+          )
+          print("Created page:", page.get("id"))
+          PY
