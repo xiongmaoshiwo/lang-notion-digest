@@ -5,7 +5,7 @@ def create_page(notion_token, database_id, title, date_str, language, source, ur
     props = {
         "Title": {"title": [{"text": {"content": title}}]},
         "Date": {"date": {"start": date_str}},
-        "Language": {"select": {"name": language}},
+        "Language": {"multi_select": {"name": language}},
         "Source": {"rich_text": [{"text": {"content": source}}]},
         "URL": {"url": url},
     }
