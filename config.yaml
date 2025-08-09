@@ -1,8 +1,13 @@
 english_rss:
   - https://www.reuters.com/world/rss
   - http://feeds.bbci.co.uk/news/world/rss.xml
+  - https://rss.nytimes.com/services/xml/rss/nyt/World.xml
+  - https://feeds.skynews.com/feeds/rss/world.xml
 chinese_rss:
   - http://www.chinadaily.com.cn/rss/china_rss.xml
+  - https://www.zaobao.com.sg/rss.xml
+  - https://www.voachinese.com/api/zyriteqvim
+  
 items_per_lang: 4
 min_chars: 800
 max_chars: 12000
