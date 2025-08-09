@@ -1,0 +1,29 @@
+name: EN/ZH Notion Digest
+
+on:
+  schedule:
+    - cron: "0 0 * * *"   # UTC 00:00 = 日本時間 09:00
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python - <<'PY'
+          import nltk
+          nltk.download('punkt')
+          nltk.download('averaged_perceptron_tagger')
+          PY
+      - name: Run digest
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python daily_notion_digest.py
