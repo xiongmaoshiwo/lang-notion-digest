@@ -1,0 +1,10 @@
+feedparser
+trafilatura
+langdetect
+nltk
+jieba
+requests
+python-dateutil
+notion-client
+openai>=1.0.0
+pyyaml

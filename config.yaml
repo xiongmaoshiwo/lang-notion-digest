@@ -1,0 +1,9 @@
+english_rss:
+  - https://www.reuters.com/world/rss
+  - http://feeds.bbci.co.uk/news/world/rss.xml
+chinese_rss:
+  - http://www.chinadaily.com.cn/rss/china_rss.xml
+items_per_lang: 1
+min_chars: 800
+max_chars: 8000
+use_openai: true
